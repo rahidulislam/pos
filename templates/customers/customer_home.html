@@ -1,0 +1,47 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block dashboard_content %}
+    
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>All Customer</h4>
+        </div>
+        <div class="card-body">
+            
+            {% if customers|length > 0 %}
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </thead>
+                    <tbody>
+                        
+                        {% for customer in customers %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ customer.name }}</td>
+                                <td>{{ customer.email }}</td>
+                                <td>{{ customer.phone }}</td>
+                                <td>{{ customer.address }}</td>
+                                <td><a href="{% url 'customers:detail_customer' pk=customer.pk %}" class="btn btn-info btn-block">View</a></td>
+                                <td><a href="{% url 'customers:edit_customer' pk=customer.pk %}" class="btn btn-success btn-block">Update</a></td>
+                                <td><a href="{% url 'customers:delete_customer' pk=customer.pk %}" class="btn btn-danger btn-block">Delete</a></td>
+                                
+
+                            </tr>
+                        {% endfor %}
+                            
+                    </tbody>
+                </table>
+            {% endif %}
+                
+        </div>
+    </div>
+</div>
+
+{% endblock dashboard_content %}

@@ -1,0 +1,71 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <h4>Set Permissions</h4>
+            <button type="submit" class="btn btn-primary">Update Permissions</button>
+            <a class="btn btn-primary btn-sm" href="{% url 'staff:create_staff' %}">
+                <i class="fa fa-plus-circle"></i> Add New
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <form method="post">
+                {% csrf_token %}
+                
+                {% for perms in perm_list %}
+                    
+                    {% for key, value in perms.items %}
+                    <fieldset class="form-group">
+                        <legend class="col-form-label">{{key|capfirst}}roles</legend>
+                        
+                        {% for perm in value %}
+                            <div class="form-check-inline">
+                                <label for="" class="form-check-label">
+                                    
+                                    {% if perm.codename in staff_perms %}
+                                        <input type="checkbox"  class="form-check-input" value="{{ perm.codename }}" name="{{ perm.codename }}" checked>
+                                    {% else %}
+                                        <input type="checkbox" class="form-check-input" value="{{ perm.codename }}" name="{{ perm.codename }}" id="">
+                                    {% endif %}
+                                    {{ perm.name }}
+                                        
+                                </label>
+                            </div>
+                        {% endfor %}
+                            
+                    </fieldset>
+                    {% endfor %}
+                        
+                {% endfor %}
+              <button type="submit" class="btn btn-outline-info btn-block">Update</button>      
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ staff.get_full_name }}'s Permissions</h4>
+        </div>
+        <div class="card-body">
+            
+            {% if staff_perms_query|length > 0 %}
+                <ul>
+                    
+                    {% for staff_perm in staff_perms_query %}
+                    <li>{{ staff_perm.content_type|capfirst }} : {{ staff_perm.name }}</li>
+                    {% endfor %}
+                        
+                </ul>
+            {% else %}
+            <div class="alert alert-info">No permissions are set to {{ staff.last_name }}</div>
+            {% endif %}
+                
+        </div>
+    </div>
+</div>
+{% endblock dashboard_content %}
+    

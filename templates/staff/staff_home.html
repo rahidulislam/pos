@@ -1,0 +1,44 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block dashboard_content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>Staff</h4>
+            <a class="btn btn-primary btn-sm" href="{% url 'staff:create_staff' %}">
+                <i class="fa fa-plus-circle"></i> Add New
+            </a>
+        </div>
+        <div class="card-body p-0">
+            {% if staffs|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope='col'>Branch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for staff in staffs %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{staff.get_full_name}}</td>
+                        <td>{{staff.phone_number}}</td>
+                        <td>{{staff.email}}</td>
+                        <td>{{staff.branch.name}}</td>
+                        <td><a href="{% url 'staff:update_staff' pk=staff.pk %}" class="btn btn-primary btn-sm">Update</a></td>
+                        <td><a href="{% url 'staff:delete_staff' pk=staff.pk %}" class='btn btn-danger btn-sm'>Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">No staff have been added yet</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock dashboard_content %}

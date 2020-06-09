@@ -1,0 +1,41 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+
+{% block dashboard_content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>All Supplier</h4>
+        </div>
+        <div class="card-body">
+            {% if suppliers|length > 0 %}
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </thead>
+                <tbody>
+                    {% for supplier in suppliers %}
+                    <tr>
+                        <td>{{ forloop.counter }}.</td>
+                        <td>{{ supplier.name }}</td>
+                        <td>{{ supplier.primary_phone }}</td>
+                        <td>{{ supplier.email }}</td>
+                        <td><a href="{% url 'supplier:detail_supplier' pk=supplier.pk %}" class="btn btn-info btn-block">View</a></td>
+                        <td><a href="{% url 'supplier:update_supplier' pk=supplier.pk %}" class="btn btn-primary btn-block">Update</a></td>
+                        <td><a href="{% url 'supplier:delete_supplier' pk=supplier.pk %}" class='btn btn-danger btn-block'>Delete</a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">No Supplier have been added yet</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock dashboard_content %}
+    

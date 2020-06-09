@@ -1,0 +1,29 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block dashboard_content %}
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body">
+                <form action="{% url 'products:set_transfer_to' %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-success btn-block">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <p>Select the branch to transfer to and click next to start adding products to transfer.
+                    To create a new branch,
+                </p>
+                <a href="{% url 'branches:create_branch' %}" class="text-info">Click Here</a>
+            </div>
+        </div>
+    </div>
+{% endblock dashboard_content %}
+    

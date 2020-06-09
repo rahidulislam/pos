@@ -1,0 +1,19 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block dashboard_content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>Delete Staff</h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>Are you Sure to Delete This {{ branch.name }}</p>
+                <input type="submit" value="confirm" class="btn btn-warning btn-sm">
+            </form>
+        </div>
+    </div>
+</div>
+    
+{% endblock dashboard_content %}

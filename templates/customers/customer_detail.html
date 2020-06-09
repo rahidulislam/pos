@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+
+{% block dashboard_content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>Customer Details</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-striped table-responsive">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ customer.name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Phone</td>
+                        <td>{{ customer.phone }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ customer.email }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ customer.address }}</td>
+                    </tr>
+                    <tr>
+                        <td>Created</td>
+                        <td>{{ customer.created|date:'d-m-Y H:i' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock dashboard_content %}
+    
